@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, request
+
+from caesar import rotate_string
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -27,18 +29,26 @@ form = """
         <body>
           <!-- create your form here -->
         
-            <form action = "/add" method = "post">
+            <form action = "/" method = "post">
                 <label for ="rotate-by">
                     <strong>Rotate by: </strong>
                     <input type = "text" id="rotate-by" name = "rot" value = "0"/>
                 </label>
-                <textarea name = "text"> </textarea>
+                <textarea id = "text" name = "text"> </textarea>
                 <input type = "submit" value = "Submit Query" />
             </form>
         </body>
     </html>    
     """
 
+@app.route("/", methods=['POST'])
+def encrypt():
+    text_string = request.form['text'] #this is throwing error
+    rot_amt = request.form['rot']
+
+    rotated_string = rotate_string(str(text_string), int(rot_amt))
+
+    return "<!DOCTYTPE HTML> <HTML> <HEADER></HEADER> <BODY> <H1>" + rotated_string + "</H1> </BODY> </HTML>"
 
 
 @app.route("/") #This should be giving a 405 method not allowed but instead gives 404 when submitted
