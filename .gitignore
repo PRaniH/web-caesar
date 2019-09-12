@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#As before, we don't want to commit that .vscode/ directory. 
+#So back in VS Code, add this line to the bottom of .gitignore
+.vscode/
